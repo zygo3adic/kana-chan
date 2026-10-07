@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Kana-chan settings</title>
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="theme.css">
+</head>
+<body class="page stack">
+  <div><span class="wordmark">Kana-chan</span></div>
+  <div class="chat"><img class="mascot" src="mascot.png" alt=""><div class="bubble">everything here saves by itself ♡</div></div>
+  <section class="module">
+    <div class="module-header"><h2 class="module-title" data-mark="時間">Schedule</h2></div>
+    <div class="module-body rows">
+      <label class="row"><span>Quizzes on</span><input type="checkbox" id="enabled" class="switch"></label>
+      <label class="row"><span>Every <input type="number" id="intervalMinutes" min="1" max="1440"> minutes</span></label>
+      <label class="row"><span>Questions per quiz <input type="number" id="questionCount" min="1" max="20"></span></label>
+    </div>
+  </section>
+  <section class="module">
+    <div class="module-header"><h2 class="module-title" data-mark="仮名">Kana</h2></div>
+    <div class="module-body rows">
+      <label class="row"><span>Hiragana <span class="mono">あいう</span></span><input type="checkbox" id="hiragana" class="switch"></label>
+      <label class="row"><span>Katakana <span class="mono">アイウ</span></span><input type="checkbox" id="katakana" class="switch"></label>
+      <label class="row"><span>Dakuten <span class="mono">がぱ / ガパ</span></span><input type="checkbox" id="dakuten" class="switch"></label>
+      <label class="row"><span>Combos <span class="mono">きゃ / キャ</span></span><input type="checkbox" id="combos" class="switch"></label>
+    </div>
+  </section>
+  <section class="module">
+    <div class="module-header"><h2 class="module-title" data-mark="外観">Look &amp; sound</h2></div>
+    <div class="module-body rows">
+      <label class="row"><span>Sounds</span><input type="checkbox" id="sounds" class="switch"></label>
+      <label class="row"><span>Theme hue <span class="hue-swatch"></span></span><input type="range" id="themeHue" min="0" max="360"></label>
+    </div>
+  </section>
+  <p id="msg" class="msg"></p>
+  <p class="foot">Made with <span class="heart">♥</span> by a milady</p>
+  <script src="defaults.js"></script>
+  <script src="sfx.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>

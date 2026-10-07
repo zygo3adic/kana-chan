@@ -1,0 +1,183 @@
+/* Visual language ported from miladycraftviewer.net / remistats.net:
+   one hue (--theme-h) drives every surface, border and text colour.
+   Used by the toolbar popup, the settings page and (inside a shadow root)
+   the quiz window, so the three always match. */
+
+:root, :host {
+  --theme-h: 227;
+
+  --bg: #e7eaee;
+  --surface-1: hsl(var(--theme-h), 80%, 95%);
+  --surface-2h: hsl(var(--theme-h), 70%, 89%);
+  --surface-3h: hsl(var(--theme-h), 60%, 85%);
+  --border-light: hsl(var(--theme-h), 50%, 75%);
+  --border-light2: hsl(var(--theme-h), 50%, 90%);
+  --border-dark: hsl(var(--theme-h), 40%, 40%);
+  --accent: hsl(var(--theme-h), 60%, 45%);
+  --highlight: hsl(var(--theme-h), 80%, 100%);
+  --text: hsl(var(--theme-h), 35%, 18%);
+  --text-muted: #0000008c;
+  --on-accent-text: #fefefe;
+  --chinese: hsl(var(--theme-h), 65%, 31%);
+  --input-bg: #ffffff;
+  --hover: hsla(var(--theme-h), 60%, 85%, 0.3);
+  --danger: #b4453a;
+  --danger-soft: #f6dcd8;
+  --selection-bg: hsla(var(--theme-h), 65%, 31%, 0.4);
+
+  --radius: 12px;
+  --radius-btn: 7px;
+  --border-width: 1.5px;
+  --shadow: 0 8px 30px rgba(17, 24, 39, 0.08);
+
+  --sans: "KanaChanMincho", "Iowan Old Style", Georgia, serif;
+  /* RemiliaMincho has no CJK glyphs, so kana resolve through local mincho faces. */
+  --kana: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", "MS Mincho", serif;
+}
+
+* { box-sizing: border-box; }
+::selection { background: var(--selection-bg); }
+
+/* ---- module: bordered panel over the reference's 4px dot grid ---------- */
+.module {
+  border: var(--border-width) solid var(--border-light);
+  border-radius: var(--radius);
+  background-color: var(--surface-1);
+  background-image: url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 0h.5v.5h-.5zm0 3.5v.5h.5v-.5zm-3 0h.5v.5h-.5zm0-3v.5h.5v-.5z' fill='%23cccccc' fill-opacity='0.5' fill-rule='evenodd'/%3E%3C/svg%3E");
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.module-header {
+  display: flex; gap: 10px; align-items: center;
+  padding: 7px 10px;
+  background: var(--surface-2h);
+  border-bottom: var(--border-width) solid var(--border-light);
+}
+.module-title {
+  display: flex; align-items: center; gap: 7px; margin: 0;
+  font: 400 14px/1 var(--sans); letter-spacing: 0.06em; color: var(--text);
+}
+.module-title::before { content: "◆"; font-size: 10px; line-height: 1; color: var(--accent); }
+.module-title[data-mark]::before {
+  content: attr(data-mark); font-family: var(--kana); font-size: 14px; letter-spacing: 0; color: var(--chinese);
+}
+.module-body { padding: 14px; }
+.spacer { flex: 1; }
+
+.mono { margin: 0; font: 12px var(--sans); color: var(--text-muted); }
+.label {
+  display: block; margin: 0 0 5px; font: 11px var(--sans);
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted);
+}
+
+/* ---- the wordmark: a raised plaque ------------------------------------- */
+.wordmark {
+  display: inline-block; font: 22px/1 var(--sans); letter-spacing: 0.02em; color: var(--text);
+  padding: 6px 14px;
+  border: var(--border-width) solid var(--border-light); border-radius: var(--radius-btn);
+  background: linear-gradient(180deg, var(--highlight), var(--surface-2h));
+  box-shadow: 0 2px 0 0 var(--border-light), 0 5px 2.5px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* ---- buttons: hard offset edge plus a soft drop, pressed sinks 2px ----- */
+button {
+  font: 14px var(--sans); color: var(--text);
+  background: linear-gradient(180deg, var(--highlight), var(--surface-2h));
+  border: 1px solid var(--border-light); border-radius: var(--radius-btn);
+  padding: 6px 14px; margin: 0; cursor: pointer;
+  box-shadow: 0 2px 0 0 var(--border-light), 0 5px 2.5px 0 rgba(0, 0, 0, 0.15);
+}
+button:hover { filter: brightness(1.03); }
+button:active { transform: translateY(2px); box-shadow: 0 0 0 0 var(--border-light), 0 2px 1.5px 0 rgba(0, 0, 0, 0.12); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.primary {
+  color: var(--on-accent-text); background: var(--accent); border-color: var(--border-dark);
+  box-shadow: 0 2px 0 0 var(--border-dark), 0 5px 2.5px 0 rgba(0, 0, 0, 0.15);
+}
+button.primary:active { box-shadow: 0 0 0 0 var(--border-dark), 0 2px 1.5px 0 rgba(0, 0, 0, 0.12); }
+button.close {
+  width: 24px; height: 24px; padding: 0; font-size: 17px; line-height: 1;
+  color: var(--text-muted); background: transparent; border-color: transparent; box-shadow: none;
+}
+button.close:hover { color: var(--text); background: var(--hover); border-color: var(--border-light); filter: none; }
+button.close:active { transform: none; }
+
+/* ---- inputs ------------------------------------------------------------ */
+input[type=text], input[type=number] {
+  padding: 7px 10px; margin: 0; color: var(--text); background: var(--input-bg);
+  border: var(--border-width) solid var(--border-light); border-radius: 6px;
+  font: 14px var(--sans); outline: none;
+}
+input[type=text]:focus-visible, input[type=number]:focus-visible {
+  border-color: var(--accent); box-shadow: 0 0 0 3px hsla(var(--theme-h), 60%, 45%, 0.18);
+}
+input[type=range] { accent-color: var(--accent); }
+
+/* Toggle switch in the same tactile language as the layer buttons. */
+.switch {
+  appearance: none; flex: none; margin: 0; cursor: pointer; position: relative;
+  width: 40px; height: 22px; border-radius: 11px;
+  background: var(--surface-2h); border: 1px solid var(--border-light);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08); transition: background .15s;
+}
+.switch::after {
+  /* Centred on both axes with calc so it stays centred at any zoom or display scale. */
+  content: ""; position: absolute; top: 50%; left: 3px; width: 14px; height: 14px; border-radius: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, var(--highlight), var(--surface-2h));
+  border: 1px solid var(--border-light);
+  transition: left .15s;
+}
+.switch:checked { background: var(--accent); border-color: var(--border-dark); }
+.switch:checked::after { left: calc(100% - 17px); border-color: var(--border-dark); }
+.switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---- mascot + speech bubble -------------------------------------------- */
+.chat { display: flex; align-items: flex-end; gap: 12px; }
+.mascot {
+  display: block; flex: none; width: 64px; height: 64px; object-fit: cover;
+  border: var(--border-width) solid var(--border-light); border-radius: var(--radius-btn);
+  background: var(--surface-2h); box-shadow: 0 2px 0 0 var(--border-light), 0 5px 2.5px 0 rgba(0, 0, 0, 0.12);
+}
+.bubble {
+  position: relative; flex: 0 1 auto; min-width: 0; margin-bottom: 16px; padding: 8px 12px;
+  font: 14px/1.35 var(--sans); color: var(--text);
+  background: linear-gradient(180deg, var(--highlight), var(--surface-1));
+  border: var(--border-width) solid var(--border-light); border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.bubble::before, .bubble::after { content: ""; position: absolute; top: 58%; border-style: solid; }
+.bubble::before { left: -10px; border-width: 6px 10px 6px 0; border-color: transparent var(--border-light) transparent transparent; }
+.bubble::after { left: -7.5px; border-width: 5px 8px 5px 0; border-color: transparent var(--surface-1) transparent transparent; margin-top: 1px; }
+
+/* ---- footer ------------------------------------------------------------ */
+.foot { text-align: center; font: 12px var(--sans); color: var(--text-muted); }
+.foot .heart { color: var(--accent); }
+
+/* ---- toolbar popup and settings page ----------------------------------- */
+body {
+  margin: 0; color: var(--text); font: 15px/1.4 var(--sans);
+  background:
+    radial-gradient(1200px 800px at 10% -10%, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0)),
+    var(--bg);
+  position: relative; isolation: isolate;
+}
+/* remistats.net's plus texture at 5%. */
+body::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.05; background-size: 40px;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAYAAAA5ZDbSAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADDSURBVHgB7d2xCoMwFEDR2P//Z0vXOrSgqLmeszmGS5C8IVnGb+vX9zLaUut9DdIEjhM4TuA4geMEjhM47nPGW8ex7n5ufNR67eA4geMEjvvn/2EWPTE7OE7gOIHjBI4TOE7gOIEBAAAAAAAAAAAAAAAAAAAAAACA07kvest90cxD4DiB4wSOEzhO4DiB47xduJ+3C7mOwHECx5lFb5lFMw+B4wSOEzhO4DiB4wQGAAAAAAAAAAAAAAAAAAAAAAAATvcGAL8MS1OvnhwAAAAASUVORK5CYII=");
+}
+body.popup { width: 300px; padding: 14px; }
+body.page { max-width: 480px; margin: 0 auto; padding: 28px 16px; min-height: 100vh; }
+.stack > * + * { margin-top: 14px; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 9px 0; font-size: 14px; }
+.row + .row { border-top: 1px solid var(--border-light2); }
+.row .mono { margin-left: 4px; }
+.row input[type=number] { width: 60px; padding: 4px 8px; margin: 0 6px; }
+.module-body.rows { padding: 2px 14px; }
+.hue-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: -2px; background: var(--accent); border: 1px solid var(--border-dark); margin-left: 6px; }
+button.wide { width: 100%; font-size: 15px; padding: 8px 14px; }
+.msg { min-height: 16px; margin: 0; font: 12px var(--sans); color: var(--accent); text-align: center; }
+.msg.err { color: var(--danger); }
+a { color: var(--accent); text-decoration: none; font-size: 13px; }
+a:hover { text-decoration: underline; }

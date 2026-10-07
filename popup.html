@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="fonts.css">
+<link rel="stylesheet" href="theme.css">
+</head>
+<body class="popup stack">
+  <div><span class="wordmark">Kana-chan</span></div>
+  <div class="chat"><img class="mascot" src="mascot.png" alt=""><div class="bubble">ready when you are :P</div></div>
+  <button id="now" class="primary wide">Quiz me now</button>
+  <p id="note" class="msg err" hidden></p>
+  <section class="module">
+    <div class="module-header"><h2 class="module-title" data-mark="設定">Settings</h2></div>
+    <div class="module-body rows">
+      <label class="row"><span>Quizzes on</span><input type="checkbox" id="enabled" class="switch"></label>
+      <label class="row"><span>Every <input type="number" id="intervalMinutes" min="1" max="1440"> min</span></label>
+      <label class="row"><span>Hiragana <span class="mono">あいう</span></span><input type="checkbox" id="hiragana" class="switch"></label>
+      <label class="row"><span>Katakana <span class="mono">アイウ</span></span><input type="checkbox" id="katakana" class="switch"></label>
+    </div>
+  </section>
+  <p id="msg" class="msg"></p>
+  <div class="row" style="padding:0"><a href="#" id="more">More settings</a><span class="foot">Made with <span class="heart">♥</span> by a milady</span></div>
+  <script src="defaults.js"></script>
+  <script src="sfx.js"></script>
+  <script src="settings.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
