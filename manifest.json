@@ -36,7 +36,7 @@
     {
       "resources": [
         "mascot.png",
-        "fonts/RemiliaMincho-Regular.woff2",
+        "fonts/mincho.woff2",
         "theme.css"
       ],
       "matches": [

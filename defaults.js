@@ -8,5 +8,5 @@ const KANA_DEFAULTS = {
   combos: true,
   questionCount: 5,
   sounds: true,
-  themeHue: 227 // miladycraftviewer's default blue
+  themeHue: 227 // default blue
 };

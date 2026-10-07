@@ -13,6 +13,5 @@ To update later, download the ZIP again, replace the folder, and click the reloa
 ## Use
 - Click the あ icon for **Quiz me now**, the on/off switch, the interval and the hiragana/katakana toggles.
 - **More settings** adds questions per quiz, dakuten (が, パ…) and combo (きゃ, キャ…) toggles, sounds on/off and a theme hue slider.
-- Styling, font (RemiliaMincho) and synth sounds are ported from miladycraftviewer.net / remistats.net.
 - Esc or × closes a quiz. After a wrong guess the answer is shown and you must type it to continue (it still counts as a miss). Accepted spellings include shi/si, chi/ti, tsu/tu, fu/hu, ji/zi, wo/o, n/nn.
 - Chrome blocks extensions on chrome:// pages, the Web Store and the new tab page, so a quiz due while you're on one of those is skipped.

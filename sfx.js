@@ -1,5 +1,4 @@
-// UI sounds ported from miladycraftviewer's sfx.js (itself from remistats.net):
-// every sound is synthesised with oscillators, no audio files.
+// UI sounds: every sound is synthesised with oscillators, no audio files.
 if (!window.__kanaSfx) {
 let ctx = null;
 let compressor = null;
@@ -107,7 +106,7 @@ function arpeggio(notes, { master, step, attack, peak, hold = 0, tail, stop }) {
 
 /* Two blips a third apart — the workhorse button sound.
 
-   Softened from the reference, which used square waves gated on and off with
+   Softened from an earlier version, which used square waves gated on and off with
    setValueAtTime. Square is buzzy to begin with, and switching a waveform on
    at full amplitude is a step discontinuity, which is literally a click on top
    of the intended one. Triangle carries far less high harmonic content, and a
@@ -130,7 +129,7 @@ function click() {
   });
 }
 
-/* Hover, straight from the reference: a soft triangle blip that walks through
+/* Hover: a soft triangle blip that walks through
    four notes so sweeping across a row plays a little run rather than the same
    note over and over. The walk resets once the pointer has been still for a
    second, so each new sweep starts from the root. */

@@ -1,5 +1,4 @@
-/* Visual language ported from miladycraftviewer.net / remistats.net:
-   one hue (--theme-h) drives every surface, border and text colour.
+/* One hue (--theme-h) drives every surface, border and text colour.
    Used by the toolbar popup, the settings page and (inside a shadow root)
    the quiz window, so the three always match. */
 
@@ -31,14 +30,14 @@
   --shadow: 0 8px 30px rgba(17, 24, 39, 0.08);
 
   --sans: "KanaChanMincho", "Iowan Old Style", Georgia, serif;
-  /* RemiliaMincho has no CJK glyphs, so kana resolve through local mincho faces. */
+  /* The bundled face has no CJK glyphs, so kana resolve through local mincho faces. */
   --kana: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", "MS Mincho", serif;
 }
 
 * { box-sizing: border-box; }
 ::selection { background: var(--selection-bg); }
 
-/* ---- module: bordered panel over the reference's 4px dot grid ---------- */
+/* ---- module: bordered panel over a 4px dot grid ---------- */
 .module {
   border: var(--border-width) solid var(--border-light);
   border-radius: var(--radius);
@@ -162,7 +161,7 @@ body {
     var(--bg);
   position: relative; isolation: isolate;
 }
-/* remistats.net's plus texture at 5%. */
+/* Faint plus texture at 5%. */
 body::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.05; background-size: 40px;
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAYAAAA5ZDbSAAAACXBIWXMAABYlAAAWJQFJUiTwAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADDSURBVHgB7d2xCoMwFEDR2P//Z0vXOrSgqLmeszmGS5C8IVnGb+vX9zLaUut9DdIEjhM4TuA4geMEjhM47nPGW8ex7n5ufNR67eA4geMEjvvn/2EWPTE7OE7gOIHjBI4TOE7gOIEBAAAAAAAAAAAAAAAAAAAAAACA07kvest90cxD4DiB4wSOEzhO4DiB47xduJ+3C7mOwHECx5lFb5lFMw+B4wSOEzhO4DiB4wQGAAAAAAAAAAAAAAAAAAAAAAAATvcGAL8MS1OvnhwAAAAASUVORK5CYII=");

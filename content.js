@@ -42,7 +42,7 @@ if (!window.__kanaChanShow) {
   function loadFont() {
     // @font-face is ignored inside a shadow root, so register on the document.
     if (!fontReady) {
-      const f = new FontFace("KanaChanMincho", `url("${chrome.runtime.getURL("fonts/RemiliaMincho-Regular.woff2")}")`);
+      const f = new FontFace("KanaChanMincho", `url("${chrome.runtime.getURL("fonts/mincho.woff2")}")`);
       fontReady = f.load().then(() => document.fonts.add(f)).catch(() => {});
     }
     return fontReady;
