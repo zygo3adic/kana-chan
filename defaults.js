@@ -9,5 +9,6 @@ const KANA_DEFAULTS = {
   kanji: true,
   questionCount: 5,
   sounds: true,
+  quizScale: 100, // quiz window size in %
   themeHue: 227 // default blue
 };

@@ -16,5 +16,6 @@ To update later, download the ZIP again, replace the folder, and click the reloa
 - **Kanji** (on by default) adds about 90 basic N5 kanji, each as a common word with furigana. The first time one comes up you get a short intro card with its reading and meaning. Then it's asked one of two ways:
   - **Read it:** the kanji is shown and you type its reading in romaji. It turns into kana as you type.
   - **Write it:** you see the meaning and the furigana over empty boxes. Type the reading, press Space, and pick the right kanji from the list (number keys, arrows or click), like a Japanese keyboard. Your own Japanese keyboard works too.
+- Drag the bottom-left corner of the quiz window to make it (and the furigana) bigger or smaller. The size is remembered; double-click the corner to reset it. There is also a **Quiz size** slider in More settings.
 - Esc or × closes a quiz. After a wrong guess the answer is shown and you must type it to continue (it still counts as a miss). Accepted spellings include shi/si, chi/ti, tsu/tu, fu/hu, ji/zi, wo/o, n/nn.
 - Chrome blocks extensions on chrome:// pages, the Web Store and the new tab page, so a quiz due while you're on one of those is skipped.

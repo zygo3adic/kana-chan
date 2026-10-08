@@ -1,5 +1,5 @@
 if (!window.__kanaChanShow) {
-  const DEFAULTS = { hiragana: true, katakana: true, dakuten: true, combos: true, kanji: true, questionCount: 5, sounds: true, themeHue: 227 };
+  const DEFAULTS = { hiragana: true, katakana: true, dakuten: true, combos: true, kanji: true, quizScale: 100, questionCount: 5, sounds: true, themeHue: 227 };
 
   // Quiz-window layout on top of theme.css (which is shared with the popup and settings page).
   const QUIZ_CSS = `
@@ -14,6 +14,14 @@ if (!window.__kanaChanShow) {
     @keyframes shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
     @keyframes hop { 40% { transform: translateY(-8px); } }
     .chat { margin-bottom: 10px; }
+    .module { position: relative; }
+    /* Drag this corner out to make the whole window (and its furigana) bigger. */
+    .grip {
+      position: absolute; left: 0; bottom: 0; width: 18px; height: 18px; cursor: nesw-resize; z-index: 1;
+      touch-action: none; border-bottom-left-radius: var(--radius);
+      background: linear-gradient(45deg, transparent 0 30%, var(--border-light) 30% 38%, transparent 38% 52%, var(--border-light) 52% 60%, transparent 60%);
+    }
+    .grip:hover, .grip.drag { background-color: var(--hover); }
     .mascot { width: 72px; height: 72px; }
     .mascot.hop { animation: hop .4s; } .mascot.shake { animation: shake .3s; }
     .module-header .mono { margin-left: auto; }
@@ -35,8 +43,9 @@ if (!window.__kanaChanShow) {
     .score { font: 46px/1.1 var(--sans); margin: 4px 0; }
     .misses { margin-bottom: 14px; line-height: 1.6; }
     .misses b { font-family: var(--kana); font-weight: 400; color: var(--chinese); }
-    .kana ruby rt, .learn ruby rt, .fb ruby rt, .misses ruby rt { font: 13px/1 var(--kana); color: var(--chinese); letter-spacing: 0; }
-    .kana.word { font-size: 54px; }
+    .kana ruby rt, .learn ruby rt, .fb ruby rt, .misses ruby rt { font: 15px/1.1 var(--kana); color: var(--chinese); letter-spacing: 0; }
+    .kana.word { font-size: 54px; line-height: 1.5; }
+    .kana rt { padding-bottom: 3px; }
     .kana .blank { color: var(--border-light); }
     .meaning { text-align: center; margin: 2px 0 0; font-size: 15px; color: var(--text); }
     .cands { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
@@ -147,6 +156,10 @@ if (!window.__kanaChanShow) {
     const style = el("style"); style.textContent = css + QUIZ_CSS;
     const wrap = el("div", "wrap");
     wrap.style.setProperty("--theme-h", s.themeHue);
+    const clampScale = (v) => Math.min(200, Math.max(80, Math.round(v)));
+    let scale = clampScale(Number(s.quizScale) || 100);
+    const applyScale = () => { wrap.style.zoom = scale / 100; };
+    applyScale();
     root.append(style, wrap);
 
     const chat = el("div", "chat");
@@ -190,7 +203,27 @@ if (!window.__kanaChanShow) {
 
     const foot = el("div", "foot");
     foot.append("Made with ", el("span", "heart", "♥"), " by a milady");
-    card.append(header, body, foot);
+    const grip = el("div", "grip"); grip.title = "Drag to resize";
+    card.append(header, body, foot, grip);
+    // The window is pinned top-right, so dragging the bottom-left corner
+    // left/down grows it. Size is saved and used for every quiz after.
+    grip.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      grip.setPointerCapture(e.pointerId); grip.classList.add("drag");
+      const x0 = e.clientX, y0 = e.clientY, s0 = scale, w0 = wrap.getBoundingClientRect().width;
+      const move = (ev) => {
+        const grow = Math.max(x0 - ev.clientX, ev.clientY - y0);
+        scale = clampScale(s0 * (w0 + grow) / w0); applyScale();
+      };
+      const up = () => {
+        grip.removeEventListener("pointermove", move); grip.classList.remove("drag");
+        try { chrome.storage.sync.set({ quizScale: scale }); } catch (_) {}
+      };
+      grip.addEventListener("pointermove", move);
+      grip.addEventListener("pointerup", up, { once: true });
+      grip.addEventListener("pointercancel", up, { once: true });
+    });
+    grip.addEventListener("dblclick", () => { scale = 100; applyScale(); try { chrome.storage.sync.set({ quizScale: 100 }); } catch (_) {} });
     wrap.append(chat, card);
     (document.body || document.documentElement).appendChild(host);
     sfx("MENU_OPEN");

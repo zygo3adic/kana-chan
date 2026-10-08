@@ -56,4 +56,12 @@
     resetSeen.addEventListener("click", async () => { await chrome.storage.local.set({ kanjiSeen: [] }); showCount(); msg.textContent = "Intro cards will show again"; msg.className = "msg"; });
     showCount();
   }
+
+  const scaleIn = document.getElementById("quizScale"), scaleOut = document.getElementById("scaleOut");
+  if (scaleIn && scaleOut) {
+    const show = () => (scaleOut.textContent = `${scaleIn.value}%`);
+    scaleIn.addEventListener("input", show); show();
+    // The quiz window saves its own size when you drag its corner.
+    chrome.storage.onChanged.addListener((c) => { if (c.quizScale) { scaleIn.value = c.quizScale.newValue; show(); } });
+  }
 })();
