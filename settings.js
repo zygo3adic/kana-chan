@@ -28,10 +28,10 @@
         input.value = out[input.id];
       }
     }
-    const h = document.getElementById("hiragana"), k = document.getElementById("katakana");
-    if (h && k && !h.checked && !k.checked) {
+    const on = ["hiragana", "katakana", "kanji"].map((id) => document.getElementById(id)).filter(Boolean);
+    if (on.length && !on.some((x) => x.checked)) {
       e.target.checked = true;
-      msg.textContent = "Keep at least one of hiragana or katakana on.";
+      msg.textContent = "Keep at least one of hiragana, katakana or kanji on.";
       msg.className = "msg err";
       sfx("ERROR");
       return;
@@ -43,5 +43,17 @@
     msg.className = "msg";
     clearTimeout(save.t);
     save.t = setTimeout(() => (msg.textContent = ""), 1200);
+  }
+
+  // Kanji intro cards: each kanji gets one the first time it comes up.
+  const seenCount = document.getElementById("seenCount");
+  const resetSeen = document.getElementById("resetSeen");
+  if (seenCount && resetSeen) {
+    const showCount = async () => {
+      const { kanjiSeen } = await chrome.storage.local.get({ kanjiSeen: [] });
+      seenCount.textContent = `${kanjiSeen.length}`;
+    };
+    resetSeen.addEventListener("click", async () => { await chrome.storage.local.set({ kanjiSeen: [] }); showCount(); msg.textContent = "Intro cards will show again"; msg.className = "msg"; });
+    showCount();
   }
 })();

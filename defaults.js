@@ -6,6 +6,7 @@ const KANA_DEFAULTS = {
   katakana: true,
   dakuten: true,
   combos: true,
+  kanji: true,
   questionCount: 5,
   sounds: true,
   themeHue: 227 // default blue

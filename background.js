@@ -22,7 +22,7 @@ async function showQuiz(tabId) {
   }
   try {
     // Each injected file guards against being injected twice.
-    await chrome.scripting.executeScript({ target: { tabId }, files: ["kana.js", "sfx.js", "content.js"] });
+    await chrome.scripting.executeScript({ target: { tabId }, files: ["kana.js", "kanji.js", "ime.js", "sfx.js", "content.js"] });
     await chrome.scripting.executeScript({ target: { tabId }, func: () => window.__kanaChanShow && window.__kanaChanShow() });
     return true;
   } catch (e) {
